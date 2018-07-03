@@ -135,7 +135,7 @@ An integration example with RestClient would look like:
 ```rb
 require 'rest-client'
 
-headers = { Cookie:		clearance.cookie_string,
+headers = { Cookie:     clearance.cookie_string,
             User-Agent: clearance.user_agent }
 
 RestClient.get("https://example.com/", headers)
