@@ -136,9 +136,9 @@ An integration example with RestClient would look like:
 require 'rest-client'
 
 headers = { Cookie:		clearance.cookie_string,
-			User-Agent: clearance.user_agent }
+            User-Agent: clearance.user_agent }
 
-RestClient.get("https://example.com/, headers)
+RestClient.get("https://example.com/", headers)
 ```
 
 
