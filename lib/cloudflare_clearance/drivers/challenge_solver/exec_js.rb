@@ -23,6 +23,9 @@ module CloudflareClearance
 
         private
 
+        # Thanks to:
+        # https://github.com/Anorov/cloudflare-scrape/blob/master/cfscrape/__init__.py
+        # for hints.
         def extract_js(body)
           js = body.match(%r{setTimeout\(function\(\)\{\s+(var s,t,o,p,b,r,e,a,k,i,n,g,f.+?\r?\n[\s\S]+?a\.value =.+?)\r?\n})[1]
           js = js.gsub(%r{a\.value = (parseInt\(.+?\)).+}, "\\1")

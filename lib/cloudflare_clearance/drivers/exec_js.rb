@@ -6,7 +6,7 @@ require 'cloudflare_clearance/http_adapter/net_http'
 require_relative 'challenge_solver/exec_js'
 
 module CloudflareClearance
-  class HttpJs < Driver
+  class ExecJs < Driver
     USER_AGENTS = [
       "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36",
       "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/65.0.3325.181 Chrome/65.0.3325.181 Safari/537.36",
@@ -19,14 +19,15 @@ module CloudflareClearance
 
     USER_AGENT = USER_AGENTS.sample
 
-    def initialize(http_adapter: CloudflareClearance::HttpAdapter::NetHttp, challenge_solver: ChallengeSolver::ExecJs.new , user_agent: USER_AGENT)
+    def initialize(http_adapter: CloudflareClearance::HttpAdapter::NetHttp, challenge_solver: ChallengeSolver::ExecJs, user_agent: USER_AGENT)
       require "execjs"
       @http_adapter = http_adapter
       @challenge_solver = challenge_solver
       @user_agent = USER_AGENT
     end
 
-    def get_clearance(uri, seconds_wait_solve: 6)
+    def get_clearance(url, seconds_wait_retry: 6)
+      uri = URI.parse(url)
 
       challenge_response = initial_request uri
 
@@ -35,6 +36,9 @@ module CloudflareClearance
       unless (challenge_cookies&.include?("__cfduid"))
         raise ClearanceError, "__cfduid Cookie was not set. Is it a Cloudflare protected page?"
       end
+
+      answer = @challenge_solver.solve(body: challenge_response.body, domain: uri.host, timeout: seconds_wait_retry)
+
     end
 
     def self.available?

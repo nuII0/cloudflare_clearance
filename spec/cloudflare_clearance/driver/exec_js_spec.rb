@@ -1,4 +1,4 @@
-RSpec.describe CloudflareClearance::HttpJs, :http_js do
+RSpec.describe CloudflareClearance::ExecJs, :exec_js do
 
 
   describe "#initialize" do

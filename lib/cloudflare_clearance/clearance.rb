@@ -12,7 +12,9 @@ module CloudflareClearance
 
     SOLVE_DELAY_SEC = 6
 
-    def initialize(url, driver: Drivers.autodetect.new, delay: SOLVE_DELAY_SEC)
+    DRIVER = Drivers.autodetect.new
+
+    def initialize(url, driver: DRIVER, delay: SOLVE_DELAY_SEC)
       parse_url(url)
       @driver = driver
       @clearance_data = @driver.get_clearance(url, seconds_wait_retry: delay)

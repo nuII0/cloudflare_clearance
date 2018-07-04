@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require 'cloudflare_clearance/drivers/selenium'
-require 'cloudflare_clearance/drivers/http_js'
+require 'cloudflare_clearance/drivers/exec_js'
 
 module CloudflareClearance
   class Drivers
@@ -16,7 +16,7 @@ module CloudflareClearance
 
     def self.drivers
       @drivers || [
-        HttpJs,
+        ExecJs,
         Selenium
       ]
     end
