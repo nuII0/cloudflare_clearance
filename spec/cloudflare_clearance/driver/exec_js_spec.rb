@@ -82,35 +82,36 @@ RSpec.describe CloudflareClearance::ExecJs, :exec_js do
       # Mock two subsequent HTTP GET calls where the first
       # responses a valid challenge.
       # The second call returns whatever is currently tested.
-      let(:http_mock) { double.tap do |d|
-        allow(d).to receive(:get).and_return(first_response, second_response)
-      end
-      }
 
-      context "receives no session cookie" do
-        let(:second_response) do
-          double.tap do |d|
-            allow(d).to receive(:header).and_return(
-              {"Set-Cookie" => ""})
-          end
-        end
-        it "raises" do
-          expect{subject.get_clearance(test_url)}.to raise_error(CloudflareClearance::ClearanceError)
-        end
-      end
-
-      context "receives session cookie" do
-        let(:second_response) do
-          double.tap do |d|
-            allow(d).to receive(:header).and_return(
-              {"Set-Cookie"=> VALID_CF_CLEARANCE_COOKIE})
-          end
-        end
-
-        it "returns Clearance" do
-          expect(subject.get_clearance(test_url)).to be_instance_of(CloudflareClearance::Clearance)
-        end
-      end
+      # let(:http_mock) { double.tap do |d|
+      #   allow(d).to receive(:get).and_return(first_response, second_response)
+      # end
+      # }
+      #
+      # context "receives no session cookie" do
+      #   let(:second_response) do
+      #     double.tap do |d|
+      #       allow(d).to receive(:header).and_return(
+      #         {"Set-Cookie" => ""})
+      #     end
+      #   end
+      #   it "raises" do
+      #     expect{subject.get_clearance(test_url)}.to raise_error(CloudflareClearance::ClearanceError)
+      #   end
+      # end
+      #
+      # context "receives session cookie" do
+      #   let(:second_response) do
+      #     double.tap do |d|
+      #       allow(d).to receive(:header).and_return(
+      #         {"Set-Cookie"=> VALID_CF_CLEARANCE_COOKIE})
+      #     end
+      #   end
+      #
+      #   it "returns Clearance" do
+      #     expect(subject.get_clearance(test_url)).to be_instance_of(CloudflareClearance::Clearance)
+      #   end
+      # end
     end
   end
 end
