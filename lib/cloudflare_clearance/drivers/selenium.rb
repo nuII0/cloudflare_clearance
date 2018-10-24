@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'cloudflare_clearance/exceptions'
 require "cloudflare_clearance/cookie_set"
 require 'cloudflare_clearance/drivers/driver'
 

@@ -1,4 +1,5 @@
 require "cloudflare_clearance/cookie"
+require "cloudflare_clearance/exceptions"
 
 module CloudflareClearance
   CookieSet = Struct.new(:cf_duid, :cf_clearance, :other, keyword_init: true) do

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'cloudflare_clearance/exceptions'
 require 'cloudflare_clearance/drivers/driver'
 require 'cloudflare_clearance/http_adapter/net_http'
 
