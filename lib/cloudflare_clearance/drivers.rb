@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'cloudflare_clearance'
+require 'cloudflare_clearance/exceptions'
 require 'cloudflare_clearance/drivers/selenium'
 require 'cloudflare_clearance/drivers/exec_js'
 
